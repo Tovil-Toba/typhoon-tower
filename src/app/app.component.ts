@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Theme.toggleMode(true);
-    Theme.setMode(Theme.Dark);
+    Theme.setMode(Theme.Light);
+    // Theme.setMode(Theme.Dark);
   }
 }

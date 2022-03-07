@@ -24,9 +24,8 @@
 
 ActionBar {
   &.light-theme-background {
-    background-color: lightskyblue;
-    // background-image: url('~/images/2054805_600.jpg');
-    // this is to stretch the image and show without repetition.
+    background-color: #8db5f3;
+    background-image: url('~/images/header.png');
     background-repeat: no-repeat;
     background-position: right center;
     background-size: contain;
