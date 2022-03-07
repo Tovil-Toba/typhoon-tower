@@ -1,0 +1,18 @@
+{
+  "app.name": "Обнинская метеовышка",
+  "Obninsk weather tower": "Обнинская метеовышка",
+  "Altitudinal Meteorological Mast": "Высотная Метеорологическая Мачта",
+  "10-minutes average": "10-минутные средние показания",
+  "Date": "Дата",
+  "time": "время",
+  "Height": "Высота",
+  "Wind speed": "Скорость ветра",
+  "Wind direction": "Направление ветра",
+  "Temperature": "Температура",
+  "Relative humidity": "Относительная влажность",
+  "Loading": "Загрузка",
+  "Couldn't load the data": "Не удалось загрузить данные",
+  "m": "м",
+  "m/s": "м/с",
+  "deg": "град"
+}

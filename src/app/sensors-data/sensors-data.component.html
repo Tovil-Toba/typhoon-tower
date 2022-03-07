@@ -1,0 +1,125 @@
+<ActionBar
+  title="{{ 'Obninsk weather tower' | L }}  {{ mainTemperature }}"
+  [class]="isDarkTheme ? 'dark-theme-background' : 'light-theme-background'"
+>
+  <ActionItem
+    icon="{{ isDarkTheme ? 'font://&#xf186;' : 'font://&#xf185;' }}"
+    class="fa-solid"
+    [class.light-theme-icon]="!isDarkTheme"
+    [class.dark-theme-icon]="isDarkTheme"
+    android.position="actionBar"
+    ios.position="right"
+    (tap)="toggleTheme()"
+  ></ActionItem>
+</ActionBar>
+<!--<ActivityIndicator [busy]="isLoading"></ActivityIndicator>-->
+<PullToRefresh
+  (refresh)="loadData($event)"
+  class="m-15"
+  [class.light-background]="!isDarkTheme"
+  [class.dark-background]="isDarkTheme"
+>
+  <StackLayout>
+    <label text="{{ '10-minutes average' | L }}" class="h3"></label>
+
+    <app-loading-label [isLoading]="isLoading"></app-loading-label>
+    <label
+      *ngIf="!isLoading"
+      [text]="(date && time)
+        ? (('Date' | L) + ' ' + date + ', ' + ('time' | L) + ' ' + time)
+        : ('Couldn\'t load the data' | L)
+      "
+    ></label>
+
+    <GridLayout rows="auto" columns="*, *, *, *, *" class="m-t-5">
+      <label
+        text="{{ 'Height' | L }}"
+        row="0"
+        col="0"
+        textWrap="true"
+        textAlignment="center"
+        appAndroidCenter
+        class="m-r-2"
+        [class.c-bg-grey]="!isDarkTheme"
+        [class.c-bg-grey-dark]="isDarkTheme"
+      ></label>
+      <label
+        text="{{ 'Wind speed' | L }}"
+        row="0"
+        col="1"
+        textWrap="true"
+        textAlignment="center"
+        appAndroidCenter
+        class="m-r-2"
+        [class.c-bg-grey]="!isDarkTheme"
+        [class.c-bg-grey-dark]="isDarkTheme"
+      ></label>
+      <label
+        text="{{ 'Wind direction' | L }}"
+        row="0"
+        col="2"
+        textWrap="true"
+        textAlignment="center"
+        appAndroidCenter
+        class="m-r-2"
+        [class.c-bg-grey]="!isDarkTheme"
+        [class.c-bg-grey-dark]="isDarkTheme"
+      ></label>
+      <label
+        text="{{ 'Temperature' | L }}"
+        row="0"
+        col="3"
+        textWrap="true"
+        textAlignment="center"
+        appAndroidCenter
+        class="m-r-2"
+        [class.c-bg-grey]="!isDarkTheme"
+        [class.c-bg-grey-dark]="isDarkTheme"
+      ></label>
+      <label
+        text="{{ 'Relative humidity' | L }}"
+        row="0"
+        col="4"
+        textWrap="true"
+        textAlignment="center"
+        appAndroidCenter
+        [class.c-bg-grey]="!isDarkTheme"
+        [class.c-bg-grey-dark]="isDarkTheme"
+      ></label>
+    </GridLayout>
+
+    <app-loading-label
+      [isLoading]="isLoading"
+      [height]="rowHeight"
+      width="100%"
+      textAlignment="center"
+    ></app-loading-label>
+    <ng-container *ngIf="!isLoading">
+      <label
+        *ngIf="!sensorsData.length"
+        text="{{ 'Couldn\'t load the data' | L }}"
+        [height]="rowHeight"
+        width="100%"
+        textAlignment="center"
+        appAndroidCenter
+      ></label>
+      <ScrollView height="100%">
+        <GridLayout [rows]="rowsHeight" columns="*, *, *, *, *">
+          <ng-container *ngFor="let row of sensorsData; let rowIndex = index;">
+            <label
+              *ngFor="let col of row; let colIndex = index; let lastCol = last;"
+              [text]="col ? (col + ' ' + measurementUnits[colIndex]) : '-'"
+              [row]="rowIndex"
+              [col]="colIndex"
+              textAlignment="center"
+              appAndroidCenter
+              [class.c-bg-grey]="rowIndex % 2 !== 0 && !isDarkTheme"
+              [class.c-bg-grey-dark]="rowIndex % 2 !== 0 && isDarkTheme"
+              [class.m-r-2]="!lastCol"
+            ></label>
+          </ng-container>
+        </GridLayout>
+      </ScrollView>
+    </ng-container>
+  </StackLayout >
+</PullToRefresh>

@@ -1,0 +1,54 @@
+@import '@nativescript/theme/core';
+@import '@nativescript/theme/default';
+
+// Place any CSS rules you want to apply on both iOS and Android here.
+// This is where the vast majority of your CSS code goes.
+
+/*
+    File name: fa-regular-400.ttf
+    Font name: Font Awesome 6 Free
+*/
+.fa-regular {
+  font-family: 'Font Awesome 6 Free', 'fa-regular-400';
+  font-weight: 400;
+}
+
+/*
+    File name: fa-solid-900.ttf
+    Font name: Font Awesome 6 Free
+*/
+.fa-solid {
+  font-family: 'Font Awesome 6 Free', 'fa-solid-900';
+  font-weight: 900;
+}
+
+ActionBar {
+  &.light-theme-background {
+    background-color: lightskyblue;
+    // background-image: url('~/images/2054805_600.jpg');
+    // this is to stretch the image and show without repetition.
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: contain;
+  }
+
+  &.dark-theme-background {
+    background-color: var(--dark-background);
+  }
+
+  .light-theme-icon {
+    color: yellow;
+  }
+
+  .dark-theme-icon {
+    color: lightblue;
+  }
+}
+
+.light-background {
+  background-color: var(--light-background);
+}
+
+.dark-background {
+  background-color: var(--dark-background);
+}

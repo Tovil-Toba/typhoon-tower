@@ -1,16 +1,28 @@
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core'
-import { NativeScriptModule } from '@nativescript/angular'
+import { HttpClientModule } from '@angular/common/http';
+import { NativeScriptLocalizeModule } from '@nativescript/localize/angular';
+import { NativeScriptModule } from '@nativescript/angular';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module'
-import { AppComponent } from './app.component'
-import { ItemsComponent } from './item/items.component'
-import { ItemDetailComponent } from './item/item-detail.component'
+import { AndroidCenterDirective } from '~/app/shared/android-center.directive';
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { LoadingLabelComponent } from './loading-label/loading-label.component';
+import { SensorsDataComponent } from './sensors-data/sensors-data.component';
 
 @NgModule({
   bootstrap: [AppComponent],
-  imports: [NativeScriptModule, AppRoutingModule],
-  declarations: [AppComponent, ItemsComponent, ItemDetailComponent],
-  providers: [],
+  imports: [
+    AppRoutingModule,
+    HttpClientModule,
+    NativeScriptLocalizeModule,
+    NativeScriptModule
+  ],
+  declarations: [
+    AndroidCenterDirective,
+    AppComponent,
+    SensorsDataComponent,
+    LoadingLabelComponent
+  ],
   schemas: [NO_ERRORS_SCHEMA],
 })
 export class AppModule {}
