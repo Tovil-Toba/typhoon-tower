@@ -1,5 +1,5 @@
 <label
-  *ngIf="isLoading"
+  [hidden]="!isLoading"
   [appAndroidCenter]="textAlignment === 'center'"
   [height]="height"
   [text]="labelText"

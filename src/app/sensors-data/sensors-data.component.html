@@ -41,7 +41,7 @@
 
     <app-loading-label [isLoading]="isLoading"></app-loading-label>
     <label
-      *ngIf="!isLoading"
+      [hidden]="isLoading"
       [text]="(date && time)
         ? (('Date' | L) + ' ' + date + ', ' + ('time' | L) + ' ' + time)
         : ('Couldn\'t load the data' | L)
@@ -111,32 +111,31 @@
       width="100%"
       textAlignment="center"
     ></app-loading-label>
-    <ng-container *ngIf="!isLoading">
-      <label
-        *ngIf="!sensorsData.length"
-        text="{{ 'Couldn\'t load the data' | L }}"
-        [height]="rowHeight"
-        width="100%"
-        textAlignment="center"
-        appAndroidCenter
-      ></label>
-      <ScrollView height="100%">
-        <GridLayout [rows]="rowsHeight" columns="*, *, *, *, *">
-          <ng-container *ngFor="let row of sensorsData; let rowIndex = index;">
-            <label
-              *ngFor="let col of row; let colIndex = index; let lastCol = last;"
-              [text]="col ? (col + ' ' + measurementUnits[colIndex]) : '-'"
-              [row]="rowIndex"
-              [col]="colIndex"
-              textAlignment="center"
-              appAndroidCenter
-              [class.c-bg-grey]="rowIndex % 2 !== 0 && !isDarkTheme"
-              [class.c-bg-grey-dark]="rowIndex % 2 !== 0 && isDarkTheme"
-              [class.m-r-2]="!lastCol"
-            ></label>
-          </ng-container>
-        </GridLayout>
-      </ScrollView>
-    </ng-container>
+
+    <label
+      [hidden]="isLoading || sensorsData.length"
+      text="{{ 'Couldn\'t load the data' | L }}"
+      [height]="rowHeight"
+      width="100%"
+      textAlignment="center"
+      appAndroidCenter
+    ></label>
+    <ScrollView height="100%">
+      <GridLayout [rows]="rowsHeight" columns="*, *, *, *, *">
+        <ng-container *ngFor="let row of sensorsData; let rowIndex = index;">
+          <label
+            *ngFor="let col of row; let colIndex = index; let lastCol = last;"
+            [text]="col ? (col + ' ' + measurementUnits[colIndex]) : '-'"
+            [row]="rowIndex"
+            [col]="colIndex"
+            textAlignment="center"
+            appAndroidCenter
+            [class.c-bg-grey]="rowIndex % 2 !== 0 && !isDarkTheme"
+            [class.c-bg-grey-dark]="rowIndex % 2 !== 0 && isDarkTheme"
+            [class.m-r-2]="!lastCol"
+          ></label>
+        </ng-container>
+      </GridLayout>
+    </ScrollView>
   </StackLayout >
 </PullToRefresh>
