@@ -3,6 +3,22 @@
   [class]="isDarkTheme ? 'dark-theme-background' : 'light-theme-background'"
   height="115"
 >
+  <AbsoluteLayout>
+    <label
+      text="{{ mainTemperature }}"
+      class="h1"
+      left="0"
+      top="28"
+      width="100%"
+    ></label>
+    <label
+      text="{{ 'Obninsk weather tower' | L }}"
+      class="h2"
+      left="0"
+      top="0"
+      width="100%"
+    ></label>
+  </AbsoluteLayout>
   <ActionItem
     icon="{{ isDarkTheme ? 'font://&#xf186;' : 'font://&#xf185;' }}"
     class="fa-solid"
