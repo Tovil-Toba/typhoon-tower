@@ -23,16 +23,18 @@
 }
 
 ActionBar {
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: contain;
+
   &.light-theme-background {
     background-color: #8db5f3;
-    background-image: url('~/images/header-light.png');
-    background-repeat: no-repeat;
-    background-position: right center;
-    background-size: contain;
+    background-image: url('~/images/tower-light.png');
   }
 
   &.dark-theme-background {
     background-color: var(--dark-background);
+    background-image: url('~/images/tower-dark.png');
   }
 
   .light-theme-icon {
