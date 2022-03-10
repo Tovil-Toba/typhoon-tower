@@ -58,7 +58,7 @@
         appAndroidCenter
         class="m-r-2"
         [class.c-bg-grey]="!isDarkTheme"
-        [class.c-bg-grey-dark]="isDarkTheme"
+        [class.dark-background-b]="isDarkTheme"
       ></label>
       <label
         text="{{ 'Wind speed' | L }}"
@@ -69,7 +69,7 @@
         appAndroidCenter
         class="m-r-2"
         [class.c-bg-grey]="!isDarkTheme"
-        [class.c-bg-grey-dark]="isDarkTheme"
+        [class.dark-background-b]="isDarkTheme"
       ></label>
       <label
         text="{{ 'Wind direction' | L }}"
@@ -80,7 +80,7 @@
         appAndroidCenter
         class="m-r-2"
         [class.c-bg-grey]="!isDarkTheme"
-        [class.c-bg-grey-dark]="isDarkTheme"
+        [class.dark-background-b]="isDarkTheme"
       ></label>
       <label
         text="{{ 'Temperature' | L }}"
@@ -91,7 +91,7 @@
         appAndroidCenter
         class="m-r-2"
         [class.c-bg-grey]="!isDarkTheme"
-        [class.c-bg-grey-dark]="isDarkTheme"
+        [class.dark-background-b]="isDarkTheme"
       ></label>
       <label
         text="{{ 'Relative humidity' | L }}"
@@ -101,7 +101,7 @@
         textAlignment="center"
         appAndroidCenter
         [class.c-bg-grey]="!isDarkTheme"
-        [class.c-bg-grey-dark]="isDarkTheme"
+        [class.dark-background-b]="isDarkTheme"
       ></label>
     </GridLayout>
 
@@ -131,7 +131,7 @@
             textAlignment="center"
             appAndroidCenter
             [class.c-bg-grey]="rowIndex % 2 !== 0 && !isDarkTheme"
-            [class.c-bg-grey-dark]="rowIndex % 2 !== 0 && isDarkTheme"
+            [class.dark-background-b]="rowIndex % 2 !== 0 && isDarkTheme"
             [class.m-r-2]="!lastCol"
           ></label>
         </ng-container>
