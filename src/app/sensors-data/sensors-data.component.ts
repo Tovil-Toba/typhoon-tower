@@ -1,5 +1,5 @@
+import { Application, ApplicationSettings, Http, HttpResponse } from '@nativescript/core';
 import { Component, OnInit } from '@angular/core';
-import { Http, HttpResponse } from '@nativescript/core';
 import { localize } from '@nativescript/localize';
 import { PullToRefresh } from '@nativescript-community/ui-pulltorefresh';
 import { registerElement } from '@nativescript/angular';
@@ -83,11 +83,17 @@ export class SensorsDataComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadData();
+    const isDarkTheme = ApplicationSettings.getBoolean('isDarkTheme');
+    Theme.toggleMode(isDarkTheme);
+
+    Application.on(Application.resumeEvent, () => {
+      this.loadData();
+    });
   }
 
   toggleTheme(): void {
     Theme.toggleMode();
+    ApplicationSettings.setBoolean('isDarkTheme', this.isDarkTheme);
   }
 
   private clearData(): void {
