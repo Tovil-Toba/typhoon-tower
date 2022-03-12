@@ -32,12 +32,12 @@
 <!--<ActivityIndicator [busy]="isLoading"></ActivityIndicator>-->
 <PullToRefresh
   (refresh)="loadData($event)"
-  class="m-t-15 m-x-15"
+  class="m-x-15"
   [class.light-background]="!isDarkTheme"
   [class.dark-background]="isDarkTheme"
 >
   <StackLayout>
-    <label text="{{ '10-minutes average' | L }}" class="h3"></label>
+    <label text="{{ '10-minutes average' | L }}" class="h3 m-t-15"></label>
 
     <app-loading-label [isLoading]="isLoading"></app-loading-label>
     <label
