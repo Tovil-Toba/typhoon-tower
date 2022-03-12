@@ -1,19 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import Theme from '@nativescript/theme';
+
+import { ThemeService } from '~/app/shared/theme.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
-  constructor() {}
-
-  get isDarkTheme(): boolean {
-    return Theme.getMode() === Theme.Dark;
-  }
+  constructor(public themeService: ThemeService) {}
 
   ngOnInit(): void {
-    Theme.setMode(Theme.Light);
-    // Theme.setMode(Theme.Dark);
+    this.themeService.init();
   }
 }

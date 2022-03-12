@@ -1,0 +1,1 @@
+ns build android --release --key-store-path keystore.jks --key-store-password sample_password --key-store-alias typhoon-tower --key-store-alias-password sample_password

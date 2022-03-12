@@ -1,9 +1,9 @@
-import { Application, ApplicationSettings, Http, HttpResponse } from '@nativescript/core';
+import { Application, Http, HttpResponse } from '@nativescript/core';
 import { Component, OnInit } from '@angular/core';
 import { localize } from '@nativescript/localize';
 import { PullToRefresh } from '@nativescript-community/ui-pulltorefresh';
 import { registerElement } from '@nativescript/angular';
-import Theme from '@nativescript/theme';
+import { ThemeService } from '~/app/shared/theme.service';
 
 import { API_URL } from '~/app/shared/config';
 import { ResponseModel } from '~/app/sensors-data/response.model';
@@ -28,11 +28,7 @@ export class SensorsDataComponent implements OnInit {
   sensorsData: string[][] = [];
   time?: string;
 
-  constructor() {}
-
-  get isDarkTheme(): boolean {
-    return Theme.getMode() === Theme.Dark;
-  }
+  constructor(public themeService: ThemeService) {}
 
   get mainTemperature(): string {
     return this.sensorsData[5]?.[3] ? (this.sensorsData[5][3] + ' °C') : '';
@@ -83,17 +79,9 @@ export class SensorsDataComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const isDarkTheme = ApplicationSettings.getBoolean('isDarkTheme');
-    Theme.toggleMode(isDarkTheme);
-
     Application.on(Application.resumeEvent, () => {
       this.loadData();
     });
-  }
-
-  toggleTheme(): void {
-    Theme.toggleMode();
-    ApplicationSettings.setBoolean('isDarkTheme', this.isDarkTheme);
   }
 
   private clearData(): void {

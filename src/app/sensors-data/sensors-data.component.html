@@ -1,6 +1,6 @@
 <ActionBar
   title="{{ 'Obninsk weather tower' | L }}  {{ mainTemperature }}"
-  [class]="isDarkTheme ? 'dark-theme-background' : 'light-theme-background'"
+  [class]="themeService.isDarkTheme ? 'dark-theme-background' : 'light-theme-background'"
   height="115"
 >
   <AbsoluteLayout>
@@ -20,21 +20,21 @@
     ></label>
   </AbsoluteLayout>
   <ActionItem
-    icon="{{ isDarkTheme ? 'font://&#xf186;' : 'font://&#xf185;' }}"
+    icon="{{ themeService.isDarkTheme ? 'font://&#xf186;' : 'font://&#xf185;' }}"
     class="fa-solid"
-    [class.light-theme-icon]="!isDarkTheme"
-    [class.dark-theme-icon]="isDarkTheme"
+    [class.light-theme-icon]="!themeService.isDarkTheme"
+    [class.dark-theme-icon]="themeService.isDarkTheme"
     android.position="actionBar"
     ios.position="right"
-    (tap)="toggleTheme()"
+    (tap)="themeService.toggleTheme()"
   ></ActionItem>
 </ActionBar>
 <!--<ActivityIndicator [busy]="isLoading"></ActivityIndicator>-->
 <PullToRefresh
   (refresh)="loadData($event)"
   class="m-x-15"
-  [class.light-background]="!isDarkTheme"
-  [class.dark-background]="isDarkTheme"
+  [class.light-background]="!themeService.isDarkTheme"
+  [class.dark-background]="themeService.isDarkTheme"
 >
   <StackLayout>
     <label text="{{ '10-minutes average' | L }}" class="h3 m-t-15"></label>
@@ -57,8 +57,8 @@
         textAlignment="center"
         appAndroidCenter
         class="m-r-2"
-        [class.c-bg-grey]="!isDarkTheme"
-        [class.dark-background-b]="isDarkTheme"
+        [class.c-bg-grey]="!themeService.isDarkTheme"
+        [class.dark-background-b]="themeService.isDarkTheme"
       ></label>
       <label
         text="{{ 'Wind speed' | L }}"
@@ -68,8 +68,8 @@
         textAlignment="center"
         appAndroidCenter
         class="m-r-2"
-        [class.c-bg-grey]="!isDarkTheme"
-        [class.dark-background-b]="isDarkTheme"
+        [class.c-bg-grey]="!themeService.isDarkTheme"
+        [class.dark-background-b]="themeService.isDarkTheme"
       ></label>
       <label
         text="{{ 'Wind direction' | L }}"
@@ -79,8 +79,8 @@
         textAlignment="center"
         appAndroidCenter
         class="m-r-2"
-        [class.c-bg-grey]="!isDarkTheme"
-        [class.dark-background-b]="isDarkTheme"
+        [class.c-bg-grey]="!themeService.isDarkTheme"
+        [class.dark-background-b]="themeService.isDarkTheme"
       ></label>
       <label
         text="{{ 'Temperature' | L }}"
@@ -90,8 +90,8 @@
         textAlignment="center"
         appAndroidCenter
         class="m-r-2"
-        [class.c-bg-grey]="!isDarkTheme"
-        [class.dark-background-b]="isDarkTheme"
+        [class.c-bg-grey]="!themeService.isDarkTheme"
+        [class.dark-background-b]="themeService.isDarkTheme"
       ></label>
       <label
         text="{{ 'Relative humidity' | L }}"
@@ -100,8 +100,8 @@
         textWrap="true"
         textAlignment="center"
         appAndroidCenter
-        [class.c-bg-grey]="!isDarkTheme"
-        [class.dark-background-b]="isDarkTheme"
+        [class.c-bg-grey]="!themeService.isDarkTheme"
+        [class.dark-background-b]="themeService.isDarkTheme"
       ></label>
     </GridLayout>
 
@@ -130,8 +130,8 @@
             [col]="colIndex"
             textAlignment="center"
             appAndroidCenter
-            [class.c-bg-grey]="rowIndex % 2 !== 0 && !isDarkTheme"
-            [class.dark-background-b]="rowIndex % 2 !== 0 && isDarkTheme"
+            [class.c-bg-grey]="rowIndex % 2 !== 0 && !themeService.isDarkTheme"
+            [class.dark-background-b]="rowIndex % 2 !== 0 && themeService.isDarkTheme"
             [class.m-r-2]="!lastCol"
           ></label>
         </ng-container>
