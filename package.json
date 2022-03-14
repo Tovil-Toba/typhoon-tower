@@ -15,11 +15,10 @@
     "@angular/router": "~13.1.1",
     "@nativescript-community/ui-pulltorefresh": "^2.5.0",
     "@nativescript/angular": "^13.0.0",
-    "@nativescript/core": "~8.1.1",
+    "@nativescript/core": "~8.2.0",
     "@nativescript/localize": "^5.0.4",
     "@nativescript/theme": "~3.0.1",
     "rxjs": "~7.4.0",
-    "tns-core-modules": "^6.5.27",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
@@ -30,10 +29,10 @@
     "@angular-eslint/schematics": "13.1.0",
     "@angular-eslint/template-parser": "13.1.0",
     "@angular/compiler-cli": "~13.1.1",
-    "@nativescript/android": "8.1.1",
+    "@nativescript/android": "~8.2.0",
     "@nativescript/schematics": "^11.2.0",
-    "@nativescript/types": "~8.1.1",
-    "@nativescript/webpack": "~5.0.0",
+    "@nativescript/types": "~8.2.0",
+    "@nativescript/webpack": "~5.0.6",
     "@ngtools/webpack": "~13.1.1",
     "@typescript-eslint/eslint-plugin": "5.3.0",
     "@typescript-eslint/parser": "^5.3.0",
@@ -43,6 +42,6 @@
     "eslint-plugin-prefer-arrow": "latest",
     "eslint-plugin-rxjs": "^5.0.2",
     "sass": "^1.49.9",
-    "typescript": "~4.4.4"
+    "typescript": "~4.5.5"
   }
 }
