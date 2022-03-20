@@ -43,14 +43,21 @@ export class SensorsDataComponent implements OnInit {
   }
 
   loadData(event?: { eventName: string; object: PullToRefresh }): void {
-    this.clearData();
     const pullToRefresh = event?.object;
-    this.isLoading = true;
 
     if (pullToRefresh) {
+      if (this.loadingCountdownStartTime > 0) {
+        pullToRefresh.refreshing = false;
+
+        return;
+      }
+
       pullToRefresh.refreshing = true;
       this.resetLoadingCountdown();
     }
+
+    this.isLoading = true;
+    this.clearData();
 
     Http.request({
       url: API_URL,
