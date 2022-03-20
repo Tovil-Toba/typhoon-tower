@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { localize } from '@nativescript/localize';
 import { Subscription, timer } from 'rxjs';
 
 @Component({
@@ -11,7 +12,7 @@ export class LoadingLabelComponent implements OnDestroy, OnChanges {
   @Input() height = 'auto';
   @Input() interval = 1000;
   @Input() isLoading = false;
-  @Input() text = 'Загрузка';
+  @Input() text = localize('Loading');
   @Input() textAlignment = 'initial';
   @Input() width = 'auto';
 

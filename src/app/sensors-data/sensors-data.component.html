@@ -112,14 +112,26 @@
       textAlignment="center"
     ></app-loading-label>
 
+    <app-countdown
+      [hidden]="isLoading || sensorsData.length > 0 || loadingCountdownStartTime === 0"
+      [startTime]="loadingCountdownStartTime"
+      text="{{ 'New try in' | L }}: "
+      [height]="rowHeight"
+      width="100%"
+      textAlignment="center"
+      appAndroidCenter
+      (event)="loadData()"
+    ></app-countdown>
+
     <label
-      [hidden]="isLoading || sensorsData.length"
-      text="{{ 'Couldn\'t load the data' | L }}"
+      [hidden]="isLoading || sensorsData.length > 0 || loadingCountdownStartTime > 0"
+      text="{{ 'Please try again later' | L }}"
       [height]="rowHeight"
       width="100%"
       textAlignment="center"
       appAndroidCenter
     ></label>
+
     <ScrollView height="100%">
       <GridLayout [rows]="rowsHeight" columns="*, *, *, *, *">
         <ng-container *ngFor="let row of sensorsData; let rowIndex = index;">

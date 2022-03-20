@@ -12,6 +12,8 @@
   "Relative humidity": "Относительная влажность",
   "Loading": "Загрузка",
   "Couldn't load the data": "Не удалось загрузить данные",
+  "New try in": "Новая попытка через",
+  "Please try again later": "Пожалуйста, попробуйте позже",
   "m": "м",
   "m/s": "м/с",
   "deg": "град"

@@ -6,6 +6,7 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { AndroidCenterDirective } from '~/app/shared/android-center.directive';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { CountdownComponent } from './countdown/countdown.component';
 import { LoadingLabelComponent } from './loading-label/loading-label.component';
 import { SensorsDataComponent } from './sensors-data/sensors-data.component';
 
@@ -20,6 +21,7 @@ import { SensorsDataComponent } from './sensors-data/sensors-data.component';
   declarations: [
     AndroidCenterDirective,
     AppComponent,
+    CountdownComponent,
     SensorsDataComponent,
     LoadingLabelComponent
   ],

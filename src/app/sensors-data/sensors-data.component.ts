@@ -17,16 +17,20 @@ registerElement('PullToRefresh', () => PullToRefresh);
 export class SensorsDataComponent implements OnInit {
   date?: string;
   isLoading = false;
-  measurementUnits: string[] = [
+  readonly measurementUnits: string[] = [
     localize('m'),
     localize('m/s'),
     localize('deg'),
     '°C',
     '%'
   ];
-  rowHeight = '30';
+  loadingCountdownStartTime = 0;
+  readonly rowHeight = '30';
   sensorsData: string[][] = [];
   time?: string;
+
+  private loadingCountdownIteration = -1;
+  private readonly loadingCountdownStartTimes = [5, 10, 15];
 
   constructor(public themeService: ThemeService) {}
 
@@ -44,7 +48,8 @@ export class SensorsDataComponent implements OnInit {
     this.isLoading = true;
 
     if (pullToRefresh) {
-      event.object.refreshing = true;
+      pullToRefresh.refreshing = true;
+      this.resetLoadingCountdown();
     }
 
     Http.request({
@@ -52,13 +57,14 @@ export class SensorsDataComponent implements OnInit {
       method: 'GET'
     }).then(
       (response: HttpResponse) => {
-        if (response.statusCode === 200 && response.content) {
-          try {
-            const json = response.content.toJSON() as ResponseModel;
-            this.date = json.date;
-            this.time = json.time;
-            this.sensorsData = json.sensorsData;
-          } catch(e) {}
+        try {
+          const json = response.content.toJSON() as ResponseModel;
+          this.date = json.date;
+          this.time = json.time;
+          this.sensorsData = json.sensorsData;
+        } catch (e) {
+          console.error(e);
+          this.iterateLoadingCountdown();
         }
 
         this.isLoading = false;
@@ -74,13 +80,18 @@ export class SensorsDataComponent implements OnInit {
         if (pullToRefresh) {
           pullToRefresh.refreshing = false;
         }
+
+        this.iterateLoadingCountdown();
       }
     );
   }
 
   ngOnInit(): void {
     Application.on(Application.resumeEvent, () => {
-      this.loadData();
+      if (this.loadingCountdownStartTime === 0) {
+        this.resetLoadingCountdown();
+        this.loadData();
+      }
     });
   }
 
@@ -88,5 +99,21 @@ export class SensorsDataComponent implements OnInit {
     this.date = undefined;
     this.time = undefined;
     this.sensorsData = [];
+  }
+
+  private iterateLoadingCountdown(): void {
+    const nextCountdownIteration = this.loadingCountdownIteration + 1;
+
+    if (this.loadingCountdownStartTimes[nextCountdownIteration]) {
+      this.loadingCountdownIteration = nextCountdownIteration;
+      this.loadingCountdownStartTime = this.loadingCountdownStartTimes[nextCountdownIteration];
+    } else {
+      this.resetLoadingCountdown();
+    }
+  }
+
+  private resetLoadingCountdown(): void {
+    this.loadingCountdownStartTime = 0;
+    this.loadingCountdownIteration = -1;
   }
 }
