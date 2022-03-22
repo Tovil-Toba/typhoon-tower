@@ -53,7 +53,6 @@ export class SensorsDataComponent implements OnInit {
       }
 
       pullToRefresh.refreshing = true;
-      this.resetLoadingCountdown();
     }
 
     this.isLoading = true;
@@ -69,6 +68,7 @@ export class SensorsDataComponent implements OnInit {
           this.date = json.date;
           this.time = json.time;
           this.sensorsData = json.sensorsData;
+          this.resetLoadingCountdown();
         } catch (e) {
           console.error(e);
           this.iterateLoadingCountdown();
