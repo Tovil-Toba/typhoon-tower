@@ -2,7 +2,6 @@ import { Http, HttpResponse } from '@nativescript/core';
 import { Injectable } from '@angular/core';
 import { PullToRefresh } from '@nativescript-community/ui-pulltorefresh';
 
-import { API_URL } from './config';
 import { CountdownIntervalsService } from './countdown-intervals.service';
 import { LoadDataOptionsModel } from '~/app/shared/load-data-options.model';
 
@@ -43,7 +42,7 @@ export class DataService {
     this.isLoading = true;
 
     Http.request({
-      url: API_URL,
+      url,
       method: 'GET'
     }).then(
       (response: HttpResponse) => {
