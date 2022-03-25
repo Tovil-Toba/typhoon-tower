@@ -7,9 +7,9 @@ import { ThemeService } from '~/app/shared/theme.service';
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
-  constructor(public themeService: ThemeService) {}
+  constructor(public theme: ThemeService) {}
 
   ngOnInit(): void {
-    this.themeService.init();
+    this.theme.init();
   }
 }

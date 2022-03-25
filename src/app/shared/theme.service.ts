@@ -8,7 +8,7 @@ import Theme from '@nativescript/theme';
 export class ThemeService {
   constructor() { }
 
-  get isDarkTheme(): boolean {
+  get isDark(): boolean {
     return Theme.getMode() === Theme.Dark;
   }
 
@@ -21,6 +21,6 @@ export class ThemeService {
 
   toggleTheme(): void {
     Theme.toggleMode();
-    ApplicationSettings.setBoolean('isDarkTheme', this.isDarkTheme);
+    ApplicationSettings.setBoolean('isDarkTheme', this.isDark);
   }
 }
