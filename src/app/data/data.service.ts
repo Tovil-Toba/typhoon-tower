@@ -2,41 +2,33 @@ import { Http, HttpResponse } from '@nativescript/core';
 import { Injectable } from '@angular/core';
 import { PullToRefresh } from '@nativescript-community/ui-pulltorefresh';
 
-import { CountdownIntervalsService } from './countdown-intervals.service';
-import { LoadDataOptionsModel } from '~/app/shared/load-data-options.model';
+import { CountdownIntervalsService } from '../shared/countdown-intervals.service';
+import { LoadOptionsModel } from './load/load-options.model';
 
 @Injectable()
 export class DataService {
   isLoading = false;
 
-  constructor(private countdownIntervals: CountdownIntervalsService) { }
+  constructor(private countdownIntervalsService: CountdownIntervalsService) { }
 
   get countdownStartTime(): number {
-    return this.countdownIntervals.currentStartTime;
+    return this.countdownIntervalsService.currentStartTime;
   }
 
   load(
     url: string,
     onSuccess: (json) => void,
-    options?: LoadDataOptionsModel,
-    event?: { eventName: string; object: PullToRefresh }
+    options?: LoadOptionsModel,
+    pullToRefresh?: PullToRefresh
   ): void {
-    this.initLoadOptions(options);
-
-    const pullToRefresh = event?.object;
+    this.initOptions(options);
 
     if (pullToRefresh) {
-      if (this.countdownIntervals.currentStartTime > 0) {
-        pullToRefresh.refreshing = false;
-
-        return;
-      }
-
-      pullToRefresh.refreshing = true;
+      pullToRefresh.refreshing = options.isPullToRefreshSpinnerVisible;
     }
 
-    if (this.countdownIntervals.currentStartTime === 0) {
-      this.countdownIntervals.init();
+    if (this.countdownIntervalsService.currentStartTime === 0) {
+      this.countdownIntervalsService.init();
     }
 
     this.isLoading = true;
@@ -49,10 +41,10 @@ export class DataService {
         try {
           const json = response.content.toJSON();
           onSuccess(json);
-          this.countdownIntervals.reset();
+          this.countdownIntervalsService.reset();
         } catch (e) {
           console.error(e);
-          this.countdownIntervals.iterate();
+          this.countdownIntervalsService.iterate();
         }
 
         this.isLoading = false;
@@ -69,14 +61,14 @@ export class DataService {
           pullToRefresh.refreshing = false;
         }
 
-        this.countdownIntervals.iterate();
+        this.countdownIntervalsService.iterate();
       }
     );
   }
 
-  private initLoadOptions(options?: LoadDataOptionsModel): void {
+  private initOptions(options?: LoadOptionsModel): void {
     if (options.countdownIntervals) {
-      this.countdownIntervals.intervals = options.countdownIntervals;
+      this.countdownIntervalsService.intervals = options.countdownIntervals;
     }
   }
 }

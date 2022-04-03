@@ -31,7 +31,7 @@
 </ActionBar>
 <!--<ActivityIndicator [busy]="isLoading"></ActivityIndicator>-->
 <PullToRefresh
-  (refresh)="loadData($event)"
+  (refresh)="reloadData($event)"
   class="m-x-15"
   [class.light-background]="!theme.isDark"
   [class.dark-background]="theme.isDark"
@@ -105,32 +105,15 @@
       ></label>
     </GridLayout>
 
-    <app-loading-label
-      [isLoading]="isLoading"
-      [height]="rowHeight"
-      width="100%"
-      textAlignment="center"
-    ></app-loading-label>
-
-    <app-countdown
-      [hidden]="isLoading || sensorsData.length > 0 || countdownStartTime === 0"
-      [startTime]="countdownStartTime"
-      text="{{ 'New try in' | L }}: "
-      [height]="rowHeight"
-      width="100%"
-      textAlignment="center"
-      appAndroidCenter
-      (event)="loadData()"
-    ></app-countdown>
-
-    <label
-      [hidden]="isLoading || sensorsData.length > 0 || countdownStartTime > 0"
-      text="{{ 'Please try again later' | L }}"
-      [height]="rowHeight"
-      width="100%"
-      textAlignment="center"
-      appAndroidCenter
-    ></label>
+    <app-load
+      [url]="url"
+      [options]="loadDataOptions"
+      [pullToRefresh]="pullToRefresh"
+      [reloadDataTrigger]="reloadDataTrigger"
+      height="30"
+      (data)="setData($event)"
+      (loading)="setLoading($event)"
+    ></app-load>
 
     <ScrollView height="100%">
       <GridLayout [rows]="rowsHeight" columns="*, *, *, *, *">

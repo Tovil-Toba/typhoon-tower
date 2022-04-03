@@ -17,6 +17,7 @@ export class CountdownComponent implements DoCheck, OnDestroy {
   @Input() width = 'auto';
 
   @Output() readonly event = new EventEmitter<void>();
+  @Output() readonly isInProgressChange = new EventEmitter<boolean>();
 
   private isInProgress = false;
   private previousStartTime?: number;
@@ -26,7 +27,7 @@ export class CountdownComponent implements DoCheck, OnDestroy {
   constructor() { }
 
   get labelText(): string {
-    return this.text + this.time;
+    return this.text + ': ' + this.time;
   }
 
   ngDoCheck(): void {
@@ -36,6 +37,7 @@ export class CountdownComponent implements DoCheck, OnDestroy {
     ) {
       this.previousStartTime = this.startTime;
       this.isInProgress = true;
+      this.isInProgressChange.emit(true);
       this.time = this.startTime;
 
       this.subscription = timer(1000, this.interval).subscribe(() => {
@@ -45,6 +47,7 @@ export class CountdownComponent implements DoCheck, OnDestroy {
           if (this.time === 0) {
             this.event.emit();
             this.isInProgress = false;
+            this.isInProgressChange.emit(false);
             this.subscription.unsubscribe();
           }
         }

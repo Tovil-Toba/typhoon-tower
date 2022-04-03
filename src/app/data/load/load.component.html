@@ -1,0 +1,28 @@
+<app-loading-label
+  [isLoading]="isLoading"
+  [text]="loadingText"
+  [height]="height"
+  width="100%"
+  textAlignment="center"
+></app-loading-label>
+
+<app-countdown
+  [hidden]="isCountdownHidden"
+  [startTime]="countdownStartTime"
+  [text]="countdownText"
+  [height]="height"
+  width="100%"
+  textAlignment="center"
+  appAndroidCenter
+  (isInProgressChange)="setCountdownInProgress($event)"
+  (event)="loadData()"
+></app-countdown>
+
+<label
+  [hidden]="isTryLaterLabelHidden"
+  [text]="tryLaterText"
+  [height]="height"
+  width="100%"
+  textAlignment="center"
+  appAndroidCenter
+></label>

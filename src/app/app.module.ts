@@ -1,29 +1,25 @@
 import { HttpClientModule } from '@angular/common/http';
-import { NativeScriptLocalizeModule } from '@nativescript/localize/angular';
 import { NativeScriptModule } from '@nativescript/angular';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 
-import { AndroidCenterDirective } from '~/app/shared/android-center.directive';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { CountdownComponent } from './countdown/countdown.component';
-import { LoadingLabelComponent } from './loading-label/loading-label.component';
+import { DataModule } from '~/app/data/data.module';
 import { SensorsDataComponent } from './sensors-data/sensors-data.component';
+import { SharedModule } from '~/app/shared/shared.module';
 
 @NgModule({
   bootstrap: [AppComponent],
   imports: [
     AppRoutingModule,
+    DataModule,
     HttpClientModule,
-    NativeScriptLocalizeModule,
-    NativeScriptModule
+    NativeScriptModule,
+    SharedModule
   ],
   declarations: [
-    AndroidCenterDirective,
     AppComponent,
-    CountdownComponent,
-    SensorsDataComponent,
-    LoadingLabelComponent
+    SensorsDataComponent
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })

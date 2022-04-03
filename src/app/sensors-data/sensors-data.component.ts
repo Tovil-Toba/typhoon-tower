@@ -1,25 +1,25 @@
-import { Application } from '@nativescript/core';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { localize } from '@nativescript/localize';
 import { PullToRefresh } from '@nativescript-community/ui-pulltorefresh';
 import { registerElement } from '@nativescript/angular';
 
-import { API_URL } from '~/app/shared/config';
-import { CountdownIntervalsService } from '~/app/shared/countdown-intervals.service';
-import { DataService } from '~/app/shared/data.service';
-import { LoadDataOptionsModel } from '~/app/shared/load-data-options.model';
+import { API_URL } from '~/app/core/config';
+import { LoadOptionsModel } from '~/app/data/load/load-options.model';
 import { ResponseModel } from '~/app/sensors-data/response.model';
-import { ThemeService } from '~/app/shared/theme.service';
+import { ThemeService } from '~/app/core/theme.service';
 
 registerElement('PullToRefresh', () => PullToRefresh);
 
 @Component({
   selector: 'app-sensors-data',
   templateUrl: './sensors-data.component.html',
-  providers: [CountdownIntervalsService, DataService]
+  styleUrls: ['./sensors-data.component.scss']
 })
-export class SensorsDataComponent implements OnInit {
-  date?: string;
+export class SensorsDataComponent {
+  readonly loadDataOptions: LoadOptionsModel = {
+    countdownIntervals: [5, 10, 15],
+    isPullToRefreshSpinnerVisible: false
+  };
   readonly measurementUnits: string[] = [
     localize('m'),
     localize('m/s'),
@@ -28,25 +28,18 @@ export class SensorsDataComponent implements OnInit {
     '%'
   ];
   readonly rowHeight = '30';
+  readonly url = API_URL;
+
+  date?: string;
+  isLoading = false;
+  pullToRefresh?: PullToRefresh;
+  reloadDataTrigger?: number;
   sensorsData: string[][] = [];
   time?: string;
 
-  private readonly loadDataOptions: LoadDataOptionsModel = {
-    countdownIntervals: [5, 10, 15]
-  };
-
   constructor(
-    private dataService: DataService,
     public theme: ThemeService
   ) { }
-
-  get countdownStartTime(): number {
-    return this.dataService.countdownStartTime;
-  }
-
-  get isLoading(): boolean {
-    return this.dataService.isLoading;
-  }
 
   get mainTemperature(): string {
     return this.sensorsData[5]?.[3] ? (this.sensorsData[5][3] + ' °C') : '';
@@ -56,22 +49,23 @@ export class SensorsDataComponent implements OnInit {
     return Array.from({ length: this.sensorsData.length }, () => this.rowHeight).join(' ');
   }
 
-  loadData(event?: { eventName: string; object: PullToRefresh }): void {
+  setData(data: ResponseModel): void {
     this.clearData();
-    const onSuccess = (json: ResponseModel): void => {
-      this.date = json.date;
-      this.time = json.time;
-      this.sensorsData = json.sensorsData;
-    };
-    this.dataService.load(API_URL, onSuccess, this.loadDataOptions, event);
+    this.date = data.date;
+    this.time = data.time;
+    this.sensorsData = data.sensorsData;
   }
 
-  ngOnInit(): void {
-    Application.on(Application.resumeEvent, () => {
-      if (this.countdownStartTime === 0) {
-        this.loadData();
-      }
+  setLoading(isLoading: boolean): void {
+    setTimeout(() => {
+      this.isLoading = isLoading;
     });
+  }
+
+  reloadData(event?: { eventName: string; object: PullToRefresh }): void {
+    this.pullToRefresh = event?.object;
+    this.clearData();
+    this.reloadDataTrigger = Date.now();
   }
 
   private clearData(): void {

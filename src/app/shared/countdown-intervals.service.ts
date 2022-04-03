@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class CountdownIntervalsService {
   intervals = [5, 10, 15];
+  isInProgress = false;
 
   private iteration = -1;
   private startTime = 0;
@@ -25,6 +26,7 @@ export class CountdownIntervalsService {
     const nextIteration = this.iteration + 1;
 
     if (this.intervals[nextIteration]) {
+      this.isInProgress = true;
       this.iteration = nextIteration;
       this.startTime = this.intervals[nextIteration];
     } else {
@@ -35,5 +37,6 @@ export class CountdownIntervalsService {
   reset(): void {
     this.startTime = 0;
     this.iteration = -1;
+    this.isInProgress = false;
   }
 }
