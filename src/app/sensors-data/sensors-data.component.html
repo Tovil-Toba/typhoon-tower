@@ -1,12 +1,15 @@
 <ActionBar
   title="{{ 'Obninsk weather tower' | L }}  {{ mainTemperature }}"
-  [class]="theme.isDark ? 'dark-theme-background' : 'light-theme-background'"
+  [class.light-theme-background]="theme.isLight"
+  [class.dark-theme-background]="theme.isDark"
   height="115"
 >
   <AbsoluteLayout>
     <label
       text="{{ mainTemperature }}"
       class="h1"
+      [class.light-primary]="theme.isLight"
+      [class.dark-primary]="theme.isDark"
       left="0"
       top="28"
       width="100%"
@@ -14,6 +17,8 @@
     <label
       text="{{ 'Obninsk weather tower' | L }}"
       class="h2"
+      [class.light-primary]="theme.isLight"
+      [class.dark-primary]="theme.isDark"
       left="0"
       top="0"
       width="100%"
@@ -22,7 +27,7 @@
   <ActionItem
     icon="{{ theme.isDark ? 'font://&#xf186;' : 'font://&#xf185;' }}"
     class="fa-solid"
-    [class.light-theme-icon]="!theme.isDark"
+    [class.light-theme-icon]="theme.isLight"
     [class.dark-theme-icon]="theme.isDark"
     android.position="actionBar"
     ios.position="right"
@@ -32,12 +37,17 @@
 <!--<ActivityIndicator [busy]="isLoading"></ActivityIndicator>-->
 <PullToRefresh
   (refresh)="reloadData($event)"
-  class="m-x-15"
-  [class.light-background]="!theme.isDark"
-  [class.dark-background]="theme.isDark"
+  class="p-x-15"
+  [class.light-theme]="theme.isLight"
+  [class.dark-theme]="theme.isDark"
 >
   <StackLayout>
-    <label text="{{ '10-minutes average' | L }}" class="h3 m-t-15"></label>
+    <label
+      text="{{ '10-minutes average' | L }}"
+      class="h3 m-t-15"
+      [class.light-primary]="theme.isLight"
+      [class.dark-primary]="theme.isDark"
+    ></label>
 
     <app-loading-label [isLoading]="isLoading"></app-loading-label>
     <label
@@ -57,7 +67,7 @@
         textAlignment="center"
         appAndroidCenter
         class="m-r-2"
-        [class.c-bg-grey]="!theme.isDark"
+        [class.c-bg-grey]="theme.isLight"
         [class.dark-background-b]="theme.isDark"
       ></label>
       <label
@@ -68,7 +78,7 @@
         textAlignment="center"
         appAndroidCenter
         class="m-r-2"
-        [class.c-bg-grey]="!theme.isDark"
+        [class.c-bg-grey]="theme.isLight"
         [class.dark-background-b]="theme.isDark"
       ></label>
       <label
@@ -79,7 +89,7 @@
         textAlignment="center"
         appAndroidCenter
         class="m-r-2"
-        [class.c-bg-grey]="!theme.isDark"
+        [class.c-bg-grey]="theme.isLight"
         [class.dark-background-b]="theme.isDark"
       ></label>
       <label
@@ -90,7 +100,7 @@
         textAlignment="center"
         appAndroidCenter
         class="m-r-2"
-        [class.c-bg-grey]="!theme.isDark"
+        [class.c-bg-grey]="theme.isLight"
         [class.dark-background-b]="theme.isDark"
       ></label>
       <label
@@ -100,7 +110,7 @@
         textWrap="true"
         textAlignment="center"
         appAndroidCenter
-        [class.c-bg-grey]="!theme.isDark"
+        [class.c-bg-grey]="theme.isLight"
         [class.dark-background-b]="theme.isDark"
       ></label>
     </GridLayout>
@@ -125,7 +135,7 @@
             [col]="colIndex"
             textAlignment="center"
             appAndroidCenter
-            [class.c-bg-grey]="rowIndex % 2 !== 0 && !theme.isDark"
+            [class.c-bg-grey]="rowIndex % 2 !== 0 && theme.isLight"
             [class.dark-background-b]="rowIndex % 2 !== 0 && theme.isDark"
             [class.m-r-2]="!lastCol"
           ></label>

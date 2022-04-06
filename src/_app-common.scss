@@ -46,6 +46,14 @@ ActionBar {
   }
 }
 
+.light-primary, .h1.light-primary, .h2.light-primary, .h3.light-primary {
+  color: var(--light-primary);
+}
+
+.dark-primary, .h1.dark-primary, .h2.dark-primary, .h3.dark-primary {
+  color: var(--dark-primary);
+}
+
 .light-background {
   background-color: var(--light-background);
 }
@@ -56,4 +64,14 @@ ActionBar {
 
 .dark-background-b {
   background-color: #2a2a2a;
+}
+
+.light-theme {
+  color: var(--light-primary);
+  background-color: var(--light-background);
+}
+
+.dark-theme {
+  color: var(--dark-primary);
+  background-color: var(--dark-background);
 }
